@@ -3,6 +3,7 @@ package com.example.expense_tracker_api.controller;
 import com.example.expense_tracker_api.annotation.AllowedExpenseStatus;
 import com.example.expense_tracker_api.model.ExpenseModel;
 import com.example.expense_tracker_api.model.ExpenseStatus;
+import com.example.expense_tracker_api.model.ExpenseSummary;
 import com.example.expense_tracker_api.service.ExpenseService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -51,5 +52,11 @@ public class ExpenseController {
             @RequestParam("status") ExpenseStatus status) {
         log.info("[{}] expense with id [{}]", status, id);
         return ResponseEntity.ok(expenseService.updateExpenseStatus(id, status));
+    }
+
+    @GetMapping(value = "/summary", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<ExpenseSummary> getSummary() {
+        log.info("Getting expenses summary");
+        return ResponseEntity.ok(expenseService.getSummary());
     }
 }
